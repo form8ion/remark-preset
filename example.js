@@ -1,0 +1,1 @@
+const remarkPreset = require('.');

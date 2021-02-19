@@ -1,0 +1,8 @@
+_extends: .github
+repository:
+  name: remark-preset
+  description: >-
+    remark preset to configure markdown style conventions for use with
+    remark-lint and other remark AST manipulation tools
+  homepage: https://npm.im/@form8ion/remark-preset
+  private: false
