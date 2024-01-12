@@ -25,6 +25,7 @@ and other remark AST manipulation tools
 
 [![MIT license][license-badge]][license-link]
 [![npm][npm-badge]][npm-link]
+![node][node-badge]
 
 <!--consumer-badges end -->
 
@@ -98,3 +99,5 @@ $ npm test
 [npm-badge]: https://img.shields.io/npm/v/@form8ion/remark-preset?logo=npm
 
 [slsa-badge]: https://slsa.dev/images/gh-badge-level2.svg
+
+[node-badge]: https://img.shields.io/node/v/@form8ion/remark-preset?logo=node.js
