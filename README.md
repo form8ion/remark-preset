@@ -14,7 +14,6 @@ and other remark AST manipulation tools
 
 * [Usage](#usage)
   * [Installation](#installation)
-  * [Example](#example)
 * [Contributing](#contributing)
   * [Dependencies](#dependencies)
   * [Verification](#verification)
@@ -33,12 +32,6 @@ and other remark AST manipulation tools
 
 ```sh
 $ npm install @form8ion/remark-preset
-```
-
-### Example
-
-```javascript
-const remarkPreset = require('@form8ion/remark-preset');
 ```
 
 ## Contributing
