@@ -23,7 +23,8 @@
     "index.js"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "devDependencies": {
     "@form8ion/commitlint-config": "1.0.14",
