@@ -3,11 +3,15 @@
   "description": "remark preset to configure markdown style conventions for use with remark-lint and other remark AST manipulation tools",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
+  "engines": {
+    "node": "^18.17.0 || >=20.6.1"
+  },
+  "type": "module",
+  "exports": "./index.js",
   "author": "Matt Travi <npm@travi.org> (https://matt.travi.org)",
   "repository": "form8ion/remark-preset",
   "bugs": "https://github.com/form8ion/remark-preset/issues",
   "homepage": "https://npm.im/@form8ion/remark-preset",
-  "runkitExampleFilename": "./example.js",
   "scripts": {
     "test": "npm-run-all --print-label --parallel lint:*",
     "lint:lockfile": "lockfile-lint",
@@ -15,25 +19,31 @@
     "generate:md": "remark . --output",
     "lint:sensitive": "ban",
     "lint:peer": "npm ls >/dev/null",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:publish": "publint --strict",
+    "lint:engines": "ls-engines"
   },
   "files": [
-    "example.js",
     "index.js"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "devDependencies": {
     "@form8ion/commitlint-config": "1.0.14",
-    "@form8ion/remark-lint-preset": "1.0.11",
     "ban-sensitive-files": "1.9.15",
     "cz-conventional-changelog": "3.3.0",
     "husky": "8.0.3",
-    "lockfile-lint": "4.3.7",
+    "lockfile-lint": "^4.12.1",
+    "ls-engines": "0.9.1",
     "npm-run-all": "4.1.5",
-    "remark-cli": "9.0.0",
-    "remark-toc": "7.1.0",
-    "remark-usage": "9.0.0"
+    "publint": "0.2.7"
+  },
+  "dependencies": {
+    "@form8ion/remark-lint-preset": "^6.0.2",
+    "remark-cli": "^12.0.0",
+    "remark-toc": "^9.0.0",
+    "remark-usage": "^11.0.1"
   }
 }

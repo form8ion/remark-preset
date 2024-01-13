@@ -3,8 +3,8 @@ name: Node.js CI
   push:
     branches:
       - master
-      - alpha
       - beta
+      - renovate/**
   pull_request:
     types:
       - opened
@@ -13,34 +13,47 @@ env:
   FORCE_COLOR: 1
   NPM_CONFIG_COLOR: always
 jobs:
+  verify-matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node:
+          - 18.17.0
+          - 20.6.1
+          - 21
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          node-version: ${{ matrix.node }}
+      - run: npm clean-install
+      - run: npm audit signatures
+      - run: npm test
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
-      - uses: bahmutov/npm-install@v1
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm clean-install
+      - run: npm audit signatures
       - run: npm test
   release:
-    needs: verify
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Read .nvmrc
-        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
-        id: nvm
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ steps.nvm.outputs.NVMRC }}
-      - uses: bahmutov/npm-install@v1
-      - name: semantic-release
-        run: npx semantic-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+    needs:
+      - verify
+      - verify-matrix
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
+    uses: form8ion/.github/.github/workflows/release-package.yml@master
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+permissions:
+  contents: read
